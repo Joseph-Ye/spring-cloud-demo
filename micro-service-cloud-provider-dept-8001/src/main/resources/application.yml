@@ -1,0 +1,37 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: microServiceCloudProviderDept  #微服务名称，对外暴漏的微服务名称，十分重要
+
+  datasource:
+    username: root        #数据库登陆用户名
+    password: 123456        #数据库登陆密码
+    url: jdbc:mysql://127.0.0.1:3306/bianchengbang_jdbc       #数据库url
+    driver-class-name: com.mysql.jdbc.Driver                  #数据库驱动
+mybatis:
+  # 指定 mapper.xml 的位置
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  #扫描实体类的位置,在此处指明扫描实体类的包，在 mapper.xml 中就可以不写实体类的全路径名
+  type-aliases-package: net.biancheng.c.entity
+  configuration:
+    #默认开启驼峰命名法，可以不用设置该属性
+    map-underscore-to-camel-case: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    instance-id: spring-cloud-provider-8001 #自定义服务名称信息
+    prefer-ip-address: true  #显示访问路径的 ip 地址
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"   # * 在yaml 文件属于关键字，所以需要加引号
+info:
+  app.name: micro-service-cloud-provider-dept
+  company.name: c.biancheng.net
+  build.aetifactId: @project.artifactId@
+  build.version: @project.version@
